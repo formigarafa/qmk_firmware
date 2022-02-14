@@ -42,7 +42,8 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master()) {
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
   }
-  return rotation;
+  // return rotation;
+  return OLED_ROTATION_270;
 }
 
 #define L_BASE 0
@@ -51,7 +52,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #define L_ADJUST 8
 
 void oled_render_layer_state(void) {
-    oled_write_P(PSTR("Layer: "), false);
+    oled_write_P(PSTR("Layer-----"), false);
     unsigned long sanitized_state;
     sanitized_state = layer_state & (~1);
     switch (sanitized_state) {
@@ -59,10 +60,10 @@ void oled_render_layer_state(void) {
             oled_write_ln_P(PSTR("Base Mo"), false);
             break;
         case L_LOWER:
-            oled_write_ln_P(PSTR("Num Syms"), false);
+            oled_write_ln_P(PSTR("Syms  "), false);
             break;
         case L_RAISE:
-            oled_write_ln_P(PSTR("Nav"), false);
+            oled_write_ln_P(PSTR("Nav  "), false);
             break;
         case L_ADJUST:
         case L_ADJUST|L_LOWER:
@@ -71,6 +72,7 @@ void oled_render_layer_state(void) {
             oled_write_ln_P(PSTR("Base To"), false);
             break;
     }
+    oled_write_ln_P(PSTR(" "), false);
 }
 
 
