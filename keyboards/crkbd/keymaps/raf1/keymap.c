@@ -52,7 +52,9 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
-    switch (layer_state) {
+    unsigned long sanitized_state;
+    sanitized_state = layer_state & (~1);
+    switch (sanitized_state) {
         case L_BASE:
             oled_write_ln_P(PSTR("Base Mo"), false);
             break;
